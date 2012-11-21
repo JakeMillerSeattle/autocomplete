@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>Demonstration</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8" /> 
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="reset.css" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script type="text/javascript" src="jquery-1.7.min.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function($) {
+			
+				// save global delay object
+				var delay;
+				
+				// setup key up event on input
+				$(document).on('keyup', '#demo input[type="text"]', function() {
+					
+					// if there is no text then hide autocomplete and do nothing
+					if($(this).val() == '') {
+						$('#demo ul').slideUp();
+						return
+					}
+				
+					// to count 2 seconds delayed
+					var count = 1;
+					
+					// clear old interval
+					clearInterval(delay);
+					
+					// start new interval
+					delay = setInterval(function() {
+						count++;
+						if(count > 5) {
+							// clear old interval
+							clearInterval(delay);
+							
+							// hide autocomplete
+							$('#demo ul').slideUp('fast', function() {	
+								$('#demo ul').html('');
+								
+								// send request
+								$.post('ajax.php', {genre : $('#demo input[type="text"]').val()}, function(response) {
+								
+									// create new autocomplete
+									var genres = eval(response);
+									if(typeof genres == 'undefined' || genres.length == 0) {
+										$('#demo ul').append('<li><i>No results</i></li>')
+									} else {
+										$(genres).each(function() {
+											$('#demo ul').append('<li><a href="#">' + this + '</a></li>')
+										});
+									}
+									
+									// show autocomplete
+									$('#demo ul').slideDown('fast');
+								});
+							});
+						}
+					}, 100);
+				});
+				
+				// setup click event on arrow
+				$(document).on('click', '#demo span', function(e) {
+					/*
+					if ($('#demo ul:visible').length == 0) {
+					
+						// send request
+						$.post('ajax.php', {all : true}, function(response) {
+						
+							// create new autocomplete
+							var genres = eval(response);
+							if(typeof genres == 'undefined' || genres.length == 0) {
+								$('#demo ul').append('<li>No results</li>')
+							} else {
+								$(genres).each(function() {
+									$('#demo ul').append('<li><a href="#">' + this + '</a></li>')
+								});
+							}
+							
+							// show autocomplete
+							$('#demo ul').slideDown('fast');
+						});
+						
+					} else {
+						// hide autocomplete
+						$('#demo ul').slideUp('fast');
+					}
+					*/
+					
+					$('#demo ul').slideToggle('fast');
+					
+					e.stopPropagation();
+				});
+				
+				// setup click event on results
+				$(document).on('click', '#demo ul li', function() {
+					
+					// set value
+					$('#demo input[type="text"]').val($(this).text());
+					
+					// hide autocomplete
+					$('#demo ul').slideUp('fast');
+					return false;
+				});
+				
+				$(document).on('click', '', function() {
+					$('#demo ul').slideUp('fast');
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<span class="demo" id="demo">
+				<span></span>
+				<input type="text" placeholder="Enter Genre Here" />
+				<ul>
+					<li><i>No results</i></li>
+				</ul>
+			</span>
+		</div>
+	</body>
+</html>

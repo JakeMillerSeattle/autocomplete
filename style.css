@@ -1,0 +1,23 @@
+.clearfix:after {content: ".";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;}
+.clearfix {display: inline-block;}
+html[xmlns] .clearfix {display: block;}
+* html .clearfix {height: 1%;}
+
+.clear {clear: both;}
+.left {float: left;}
+.right {float: right;}
+.center {text-align: center;}
+
+.alignleft {float: left; margin: 10px 15px 10px 0;}
+.alignright {float: right; margin: 10px 0 10px 15px;}
+.aligncenter {display: block;margin: auto;}
+
+.wrapper {width: 400px; margin: 100px auto 0;}
+.demo {position: relative; display: block; width: 214px;}
+.demo span {position: absolute; top: 2px; right: 2px; background: url('images/arrow.png') no-repeat; width: 32px; height: 32px; display: block; cursor: pointer;}
+.demo input[type="text"] {width: 200px; height: 30px; border: 2px #ccc solid; padding: 0 5px; font: italic 14px/30px Georgia; color: #000;}
+.demo ul {position: absolute; top: 32px; left: 0; border: 2px #ccc solid; width: 210px; display: none;}
+.demo ul li {display: block; font: italic 14px Georgia;}
+.demo ul li a {color: #000; text-decoration: none; display: block; padding: 5px;}
+.demo ul li a:hover {background: #ddd; color: #fff;}
+.demo ul li i {display: block; padding: 5px;}
