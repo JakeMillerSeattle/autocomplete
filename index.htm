@@ -13,6 +13,9 @@
 				// save global delay object
 				var delay;
 				
+				// save global genres object
+				var all_genres = ['Country', 'Pop', 'Rock', 'Hip hop', 'Rap', 'Classical', 'Blues', 'Jazz', 'Heavy Metal', 'Soul', 'R&B', 'Folk', 'Reggae', 'Funk', 'Gothic', 'Disco', 'Freestyle', 'Religious', 'Electronic', 'Opera'];
+				
 				// setup key up event on input
 				$(document).on('keyup', '#demo input[type="text"]', function() {
 					
@@ -40,10 +43,11 @@
 								$('#demo ul').html('');
 								
 								// send request
-								$.post('ajax.php', {genre : $('#demo input[type="text"]').val()}, function(response) {
+								post($('#demo input[type="text"]').val(), function(genres) {
 								
+									console.log(genres);
+									
 									// create new autocomplete
-									var genres = eval(response);
 									if(typeof genres == 'undefined' || genres.length == 0) {
 										$('#demo ul').append('<li><i>No results</i></li>')
 									} else {
@@ -62,32 +66,8 @@
 				
 				// setup click event on arrow
 				$(document).on('click', '#demo span', function(e) {
-					/*
-					if ($('#demo ul:visible').length == 0) {
-					
-						// send request
-						$.post('ajax.php', {all : true}, function(response) {
-						
-							// create new autocomplete
-							var genres = eval(response);
-							if(typeof genres == 'undefined' || genres.length == 0) {
-								$('#demo ul').append('<li>No results</li>')
-							} else {
-								$(genres).each(function() {
-									$('#demo ul').append('<li><a href="#">' + this + '</a></li>')
-								});
-							}
-							
-							// show autocomplete
-							$('#demo ul').slideDown('fast');
-						});
-						
-					} else {
-						// hide autocomplete
-						$('#demo ul').slideUp('fast');
-					}
-					*/
-					
+				
+					// show/hide autocomplete
 					$('#demo ul').slideToggle('fast');
 					
 					e.stopPropagation();
@@ -107,6 +87,17 @@
 				$(document).on('click', '', function() {
 					$('#demo ul').slideUp('fast');
 				});
+				
+				function post(genre, callback) {
+					var matches = [];
+					for(var i = 0; i < all_genres.length; i++) {
+						var temp = all_genres[i];
+						if(temp.toLowerCase().indexOf(genre) >= 0) {
+							matches.push(temp);
+						}
+					}
+					callback(matches);
+				}
 			});
 		</script>
 	</head>
