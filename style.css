@@ -12,12 +12,14 @@ html[xmlns] .clearfix {display: block;}
 .alignright {float: right; margin: 10px 0 10px 15px;}
 .aligncenter {display: block;margin: auto;}
 
+body {background: #272727;}
 .wrapper {width: 400px; margin: 100px auto 0;}
 .demo {position: relative; display: block; width: 214px;}
 .demo span {position: absolute; top: 2px; right: 2px; background: url('images/arrow.png') no-repeat center center; width: 32px; height: 32px; display: block; cursor: pointer;}
-.demo input[type="text"] {width: 200px; height: 30px; background: rgba(0, 0, 0, 0.8); padding: 0 5px; font: 13px/30px Arial; color: #d4d4d4; border: 1px solid #535353;}
-.demo ul {position: absolute; top: 33px; left: 0; background: rgba(0, 0, 0, 0.8); width: 210px; display: none; border: 1px solid #535353; color: #d4d4d4;}
+.demo input[type="text"] {width: 200px; height: 30px; background: #4a4a4a; padding: 0 5px; font: 13px/30px Arial; color: #d4d4d4; border: 1px solid #535353;}
+.demo ul {position: absolute; top: 33px; left: 0; background: #4a4a4a; width: 210px; display: none; border: 1px solid #535353; color: #d4d4d4;}
 .demo ul li {display: block; font: 13px Arial;}
-.demo ul li a {color: #d4d4d4; text-decoration: none; display: block; padding: 5px;}
+.demo ul li:first-child a {border-top: none;}
+.demo ul li a {color: #d4d4d4; text-decoration: none; display: block; padding: 5px; border-top: 1px solid #535353;}
 .demo ul li a:hover {background: #535353;}
 .demo ul li i {display: block; padding: 5px;}
